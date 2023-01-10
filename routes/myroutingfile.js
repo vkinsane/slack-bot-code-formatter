@@ -332,6 +332,24 @@ var helpBlockKitObj = {
         },
       ],
     },
+    {
+      type: "section",
+      text: {
+        type: "plain_text",
+        text: "  ",
+      },
+      accessory: {
+        type: "button",
+        text: {
+          type: "plain_text",
+          text: "Visit",
+          emoji: true,
+        },
+        value: "click_me_123",
+        url: "https://google.com",
+        action_id: "button-action",
+      },
+    },
   ],
 };
 
