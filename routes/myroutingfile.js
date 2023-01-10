@@ -25,7 +25,8 @@ const getBlockKitObj = (formattedCode) => {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: formattedCode,
+          // text: "formattedCode",
+          text: "```" + formattedCode + "```",
         },
       },
       {
