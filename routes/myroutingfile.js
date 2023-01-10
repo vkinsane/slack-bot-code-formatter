@@ -5,7 +5,7 @@ const router = express.Router();
 
 var parserValue = "babel"; //default value
 var bot_logo =
-  "https://pbs.twimg.com/profile_images/625633822235693056/lNGUneLX_400x400.jpg";
+  "https://avatars.slack-edge.com/2023-01-10/4619537860514_fd3e1b2e5c2dbdb645c6_32.png";
 
 var formattedCode;
 const getBlockKitObj = (formattedCode) => {
@@ -85,6 +85,7 @@ router.post("/returnmsg", async (req, res) => {
   res.end();
 });
 
+// -------------------------------------------------------- Format HTML --------------------------------------------------------
 /*
 <html>
  <head>
@@ -102,6 +103,7 @@ router.post("/formathtml", async (req, res) => {
   res.end();
 });
 
+// -------------------------------------------------------- Format CSS --------------------------------------------------------
 /*
 p {
   color: red; text-align: center;
@@ -115,6 +117,7 @@ router.post("/formatcss", async (req, res) => {
   res.end();
 });
 
+// -------------------------------------------------------- Format Javascript --------------------------------------------------------
 /*
 // generating  a random number
 const a = Math.random(); console.log(a);
@@ -127,6 +130,7 @@ router.post("/formatjs", async (req, res) => {
   res.end();
 });
 
+// -------------------------------------------------------- Help Box --------------------------------------------------------
 var helpBlockKitObj = {
   blocks: [
     {
@@ -352,7 +356,6 @@ var helpBlockKitObj = {
     },
   ],
 };
-
 router.post("/gethelp", async (req, res) => {
   await Axios.post(webhook, helpBlockKitObj);
   res.end();
