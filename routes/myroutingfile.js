@@ -36,7 +36,7 @@ const getBlockKitObj = (formattedCode) => {
         elements: [
           {
             type: "mrkdwn",
-            text: "*Thank you for using Code Formatter*",
+            text: "*Thank you for using* <https://www.zipy.ai/|Code Formatter>",
           },
           {
             type: "image",
@@ -44,24 +44,6 @@ const getBlockKitObj = (formattedCode) => {
             alt_text: "bot logo",
           },
         ],
-      },
-      {
-        type: "section",
-        text: {
-          type: "plain_text",
-          text: "  ",
-        },
-        accessory: {
-          type: "button",
-          text: {
-            type: "plain_text",
-            text: "Visit",
-            emoji: true,
-          },
-          value: "click_me_123",
-          url: "https://www.zipy.ai/",
-          action_id: "button-action",
-        },
       },
     ],
   };
@@ -327,7 +309,7 @@ var helpBlockKitObj = {
       elements: [
         {
           type: "mrkdwn",
-          text: "*Thank you for using Code Formatter*",
+          text: "*Thank you for using* <https://www.zipy.ai/|Code Formatter>",
         },
         {
           type: "image",
@@ -335,24 +317,6 @@ var helpBlockKitObj = {
           alt_text: "bot logo",
         },
       ],
-    },
-    {
-      type: "section",
-      text: {
-        type: "plain_text",
-        text: "  ",
-      },
-      accessory: {
-        type: "button",
-        text: {
-          type: "plain_text",
-          text: "Visit",
-          emoji: true,
-        },
-        value: "click_me_123",
-        url: "https://www.zipy.ai/",
-        action_id: "button-action",
-      },
     },
   ],
 };
