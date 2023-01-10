@@ -45,6 +45,24 @@ const getBlockKitObj = (formattedCode) => {
           },
         ],
       },
+      {
+        type: "section",
+        text: {
+          type: "plain_text",
+          text: "  ",
+        },
+        accessory: {
+          type: "button",
+          text: {
+            type: "plain_text",
+            text: "Visit",
+            emoji: true,
+          },
+          value: "click_me_123",
+          url: "https://google.com",
+          action_id: "button-action",
+        },
+      },
     ],
   };
 };
@@ -326,6 +344,7 @@ module.exports = router;
 
 // https://604e-123-201-214-8.in.ngrok.io
 // https://9315-123-201-214-8.in.ngrok.io
+// https://github.com/vkinsane/slack-bot-code-formatter/tree/master
 // const userString = `router.get('/:eId', (req,res) => {Event.find({ "ename": { $regex: req.params.eId, $options: 'i' }})
 //     .then((events) => res.json(events)).catch((err) => res.status(400).json('Error '+err));
 // });`;
