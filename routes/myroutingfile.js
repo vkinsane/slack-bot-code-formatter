@@ -10,6 +10,7 @@ var formattedCode;
 
 const getBlockKitObj = (formattedCode, userName) => {
   return {
+    response_type: "in_channel",
     blocks: [
       {
         type: "section",
@@ -32,17 +33,31 @@ const getBlockKitObj = (formattedCode, userName) => {
       {
         type: "divider",
       },
+      // {
+      //   type: "context",
+      //   elements: [
+      //     {
+      //       type: "mrkdwn",
+      //       text: "*Thank you for using* <https://www.zipy.ai/|Code Formatter>",
+      //     },
+      //     {
+      //       type: "image",
+      //       image_url: bot_logo,
+      //       alt_text: "bot logo",
+      //     },
+      //   ],
+      // },
       {
         type: "context",
         elements: [
           {
             type: "mrkdwn",
-            text: "*Thank you for using* <https://www.zipy.ai/|Code Formatter>",
+            text: "*Thank you for using Code Formatter by* <https://www.zipy.ai|Zipy.ai>",
           },
           {
             type: "image",
-            image_url: bot_logo,
-            alt_text: "bot logo",
+            image_url: "https://i.imgur.com/UlvWRpP.png",
+            alt_text: "Zipy.ai",
           },
         ],
       },
@@ -247,12 +262,12 @@ const getHelpBlockKitObj = (userName) => {
         elements: [
           {
             type: "mrkdwn",
-            text: "*Thank you for using* <https://www.zipy.ai/|Code Formatter>",
+            text: "*Thank you for using Code Formatter by* <https://www.zipy.ai|Zipy.ai>",
           },
           {
             type: "image",
-            image_url: bot_logo,
-            alt_text: "bot logo",
+            image_url: "https://i.imgur.com/UlvWRpP.png",
+            alt_text: "Zipy.ai",
           },
         ],
       },
@@ -279,15 +294,16 @@ router.post("/returnmsg", async (req, res) => {
   res.end();
 });
 
-const sendCodeFormattedResponse = async (requestBody, parserValue) => {
+const sendCodeFormattedResponse = (requestBody, parserValue) => {
   formattedCode = formatCode(requestBody.text, parserValue);
-  return Axios.post(
-    webhook,
-    getBlockKitObj(formattedCode, requestBody.user_name)
-  );
+  return getBlockKitObj(formattedCode, requestBody.user_name);
+  // return Axios.post(
+  //   webhook,
+  //   getBlockKitObj(formattedCode, requestBody.user_name)
+  // );
 };
 
-const sendErrorResponse = async (error) => {
+const sendErrorResponse = (error) => {
   // console.log(error);
   var errorString = error.toString();
   // var errorToDisplay = errorString.substr(
@@ -325,7 +341,7 @@ const sendErrorResponse = async (error) => {
       },
     ],
   };
-  return Axios.post(webhook, errorResponseObj);
+  return errorResponseObj;
 };
 
 // -------------------------------------------------------- Format HTML --------------------------------------------------------
@@ -340,9 +356,9 @@ const sendErrorResponse = async (error) => {
 */
 router.post("/formathtml", async (req, res) => {
   try {
-    await sendCodeFormattedResponse(req.body, "html");
+    res.send(sendCodeFormattedResponse(req.body, "html"));
   } catch (error) {
-    await sendErrorResponse(error);
+    res.send(sendErrorResponse(error));
   }
 
   res.end();
@@ -356,9 +372,9 @@ p {
 */
 router.post("/formatcss", async (req, res) => {
   try {
-    await sendCodeFormattedResponse(req.body, "css");
+    res.send(sendCodeFormattedResponse(req.body, "css"));
   } catch (error) {
-    await sendErrorResponse(error);
+    res.send(sendErrorResponse(error));
   }
   res.end();
 });
@@ -370,9 +386,9 @@ const a = Math.random(); console.log(a);
 */
 router.post("/formatjs", async (req, res) => {
   try {
-    await sendCodeFormattedResponse(req.body, "babel");
+    res.send(sendCodeFormattedResponse(req.body, "babel"));
   } catch (error) {
-    await sendErrorResponse(error);
+    res.send(sendErrorResponse(error));
   }
   res.end();
 });
@@ -397,9 +413,9 @@ const element = (
 */
 router.post("/formatjsx", async (req, res) => {
   try {
-    await sendCodeFormattedResponse(req.body, "babel");
+    res.send(sendCodeFormattedResponse(req.body, "babel"));
   } catch (error) {
-    await sendErrorResponse(error);
+    res.send(sendErrorResponse(error));
   }
   res.end();
 });
@@ -410,9 +426,9 @@ router.post("/formatjsx", async (req, res) => {
 
 router.post("/formathbs", async (req, res) => {
   try {
-    await sendCodeFormattedResponse(req.body, "");
+    res.send(sendCodeFormattedResponse(req.body, ""));
   } catch (error) {
-    await sendErrorResponse(error);
+    res.send(sendErrorResponse(error));
   }
   res.end();
 });
@@ -429,9 +445,9 @@ router.post("/formathbs", async (req, res) => {
 */
 router.post("/formatangular", async (req, res) => {
   try {
-    await sendCodeFormattedResponse(req.body, "angular");
+    res.send(sendCodeFormattedResponse(req.body, "angular"));
   } catch (error) {
-    await sendErrorResponse(error);
+    res.send(sendErrorResponse(error));
   }
   res.end();
 });
@@ -452,9 +468,9 @@ body {
 */
 router.post("/formatscss", async (req, res) => {
   try {
-    await sendCodeFormattedResponse(req.body, "scss");
+    res.send(sendCodeFormattedResponse(req.body, "scss"));
   } catch (error) {
-    await sendErrorResponse(error);
+    res.send(sendErrorResponse(error));
   }
   res.end();
 });
@@ -465,22 +481,9 @@ router.post("/formatscss", async (req, res) => {
 */
 router.post("/formatless", async (req, res) => {
   try {
-    await sendCodeFormattedResponse(req.body, "less");
+    res.send(sendCodeFormattedResponse(req.body, "less"));
   } catch (error) {
-    await sendErrorResponse(error);
-  }
-  res.end();
-});
-
-// -------------------------------------------------------- Format less --------------------------------------------------------
-/*
-
-*/
-router.post("/formatless", async (req, res) => {
-  try {
-    await sendCodeFormattedResponse(req.body, "less");
-  } catch (error) {
-    await sendErrorResponse(error);
+    res.send(sendErrorResponse(error));
   }
   res.end();
 });
@@ -491,9 +494,9 @@ router.post("/formatless", async (req, res) => {
 */
 router.post("/formattypescript", async (req, res) => {
   try {
-    await sendCodeFormattedResponse(req.body, "typescript");
+    res.send(sendCodeFormattedResponse(req.body, "typescript"));
   } catch (error) {
-    await sendErrorResponse(error);
+    res.send(sendErrorResponse(error));
   }
   res.end();
 });
@@ -504,9 +507,9 @@ router.post("/formattypescript", async (req, res) => {
 */
 router.post("/formatflow", async (req, res) => {
   try {
-    await sendCodeFormattedResponse(req.body, "flow");
+    res.send(sendCodeFormattedResponse(req.body, "flow"));
   } catch (error) {
-    await sendErrorResponse(error);
+    res.send(sendErrorResponse(error));
   }
   res.end();
 });
@@ -517,9 +520,9 @@ router.post("/formatflow", async (req, res) => {
 */
 router.post("/formatjson", async (req, res) => {
   try {
-    await sendCodeFormattedResponse(req.body, "json");
+    res.send(sendCodeFormattedResponse(req.body, "json"));
   } catch (error) {
-    await sendErrorResponse(error);
+    res.send(sendErrorResponse(error));
   }
   res.end();
 });
@@ -530,9 +533,9 @@ router.post("/formatjson", async (req, res) => {
 */
 router.post("/formatgraphql", async (req, res) => {
   try {
-    await sendCodeFormattedResponse(req.body, "graphql");
+    res.send(sendCodeFormattedResponse(req.body, "graphql"));
   } catch (error) {
-    await sendErrorResponse(error);
+    res.send(sendErrorResponse(error));
   }
   res.end();
 });
@@ -543,20 +546,17 @@ router.post("/formatgraphql", async (req, res) => {
 */
 router.post("/formatyaml", async (req, res) => {
   try {
-    await sendCodeFormattedResponse(req.body, "yaml");
+    res.send(sendCodeFormattedResponse(req.body, "yaml"));
   } catch (error) {
-    await sendErrorResponse(error);
+    res.send(sendErrorResponse(error));
   }
   res.end();
 });
 
 // -------------------------------------------------------- Help Box --------------------------------------------------------
-const sendHelpResponse = async (userName) => {
-  return Axios.post(webhook, getHelpBlockKitObj(userName));
-};
+
 router.post("/gethelp", async (req, res) => {
-  await sendHelpResponse(req.body.user_name);
-  res.end();
+  res.send(getHelpBlockKitObj(req.body.user_name));
 });
 
 module.exports = router;
