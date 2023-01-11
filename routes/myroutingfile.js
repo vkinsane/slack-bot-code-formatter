@@ -291,19 +291,18 @@ router.post("/returnmsg", async (req, res) => {
   let userInpCode = req.body.text;
   console.log(req.body.text);
   await Axios.post(webhook, userInpCode);
-  res.end();
 });
 
-const sendCodeFormattedResponse = (requestBody, parserValue) => {
+const sendCodeFormattedResponse = async (requestBody, parserValue) => {
   formattedCode = formatCode(requestBody.text, parserValue);
-  return getBlockKitObj(formattedCode, requestBody.user_name);
-  // return Axios.post(
-  //   webhook,
-  //   getBlockKitObj(formattedCode, requestBody.user_name)
-  // );
+  // return getBlockKitObj(formattedCode, requestBody.user_name);
+  return Axios.post(
+    requestBody.response_url,
+    getBlockKitObj(formattedCode, requestBody.user_name)
+  );
 };
 
-const sendErrorResponse = (error) => {
+const sendErrorResponse = async (requestBody, error) => {
   // console.log(error);
   var errorString = error.toString();
   // var errorToDisplay = errorString.substr(
@@ -341,7 +340,7 @@ const sendErrorResponse = (error) => {
       },
     ],
   };
-  return errorResponseObj;
+  return Axios.post(requestBody.response_url, errorResponseObj);
 };
 
 // -------------------------------------------------------- Format HTML --------------------------------------------------------
@@ -355,12 +354,14 @@ const sendErrorResponse = (error) => {
 </html>
 */
 router.post("/formathtml", async (req, res) => {
+  console.log(req.body.response_url);
   try {
-    res.send(sendCodeFormattedResponse(req.body, "html"));
+    // res.send(await sendCodeFormattedResponse(req.body, "html"));
+    await sendCodeFormattedResponse(req.body, "html");
   } catch (error) {
-    res.send(sendErrorResponse(error));
+    // res.send(sendErrorResponse(error));
+    await sendErrorResponse(req.body, error);
   }
-
   res.end();
 });
 
@@ -371,10 +372,15 @@ p {
 } 
 */
 router.post("/formatcss", async (req, res) => {
+  // try {
+  //   res.send(sendCodeFormattedResponse(req.body, "css"));
+  // } catch (error) {
+  //   res.send(sendErrorResponse(error));
+  // }
   try {
-    res.send(sendCodeFormattedResponse(req.body, "css"));
+    await sendCodeFormattedResponse(req.body, "css");
   } catch (error) {
-    res.send(sendErrorResponse(error));
+    await sendErrorResponse(req.body, error);
   }
   res.end();
 });
@@ -385,12 +391,16 @@ router.post("/formatcss", async (req, res) => {
 const a = Math.random(); console.log(a);
 */
 router.post("/formatjs", async (req, res) => {
+  // try {
+  //   res.send(sendCodeFormattedResponse(req.body, "babel"));
+  // } catch (error) {
+  //   res.send(sendErrorResponse(error));
+  // }
   try {
-    res.send(sendCodeFormattedResponse(req.body, "babel"));
+    await sendCodeFormattedResponse(req.body, "babel");
   } catch (error) {
-    res.send(sendErrorResponse(error));
+    await sendErrorResponse(req.body, error);
   }
-  res.end();
 });
 
 // -------------------------------------------------------- Format JSX --------------------------------------------------------
@@ -412,12 +422,16 @@ const element = (
 
 */
 router.post("/formatjsx", async (req, res) => {
+  // try {
+  //   res.send(sendCodeFormattedResponse(req.body, "babel"));
+  // } catch (error) {
+  //   res.send(sendErrorResponse(error));
+  // }
   try {
-    res.send(sendCodeFormattedResponse(req.body, "babel"));
+    await sendCodeFormattedResponse(req.body, "babel");
   } catch (error) {
-    res.send(sendErrorResponse(error));
+    await sendErrorResponse(req.body, error);
   }
-  res.end();
 });
 
 // -------------------------------------------------------- Format hbs(Remaining) --------------------------------------------------------
@@ -430,7 +444,7 @@ router.post("/formathbs", async (req, res) => {
   } catch (error) {
     res.send(sendErrorResponse(error));
   }
-  res.end();
+  
 });
 */
 
@@ -444,12 +458,16 @@ router.post("/formathbs", async (req, res) => {
 </div>
 */
 router.post("/formatangular", async (req, res) => {
+  // try {
+  //   res.send(sendCodeFormattedResponse(req.body, "angular"));
+  // } catch (error) {
+  //   res.send(sendErrorResponse(error));
+  // }
   try {
-    res.send(sendCodeFormattedResponse(req.body, "angular"));
+    await sendCodeFormattedResponse(req.body, "angular");
   } catch (error) {
-    res.send(sendErrorResponse(error));
+    await sendErrorResponse(req.body, error);
   }
-  res.end();
 });
 
 // -------------------------------------------------------- Format scss --------------------------------------------------------
@@ -467,12 +485,16 @@ body {
 
 */
 router.post("/formatscss", async (req, res) => {
+  // try {
+  //   res.send(sendCodeFormattedResponse(req.body, "scss"));
+  // } catch (error) {
+  //   res.send(sendErrorResponse(error));
+  // }
   try {
-    res.send(sendCodeFormattedResponse(req.body, "scss"));
+    await sendCodeFormattedResponse(req.body, "scss");
   } catch (error) {
-    res.send(sendErrorResponse(error));
+    await sendErrorResponse(req.body, error);
   }
-  res.end();
 });
 
 // -------------------------------------------------------- Format less --------------------------------------------------------
@@ -480,12 +502,16 @@ router.post("/formatscss", async (req, res) => {
 
 */
 router.post("/formatless", async (req, res) => {
+  // try {
+  //   res.send(sendCodeFormattedResponse(req.body, "less"));
+  // } catch (error) {
+  //   res.send(sendErrorResponse(error));
+  // }
   try {
-    res.send(sendCodeFormattedResponse(req.body, "less"));
+    await sendCodeFormattedResponse(req.body, "less");
   } catch (error) {
-    res.send(sendErrorResponse(error));
+    await sendErrorResponse(req.body, error);
   }
-  res.end();
 });
 
 // -------------------------------------------------------- Format typescript --------------------------------------------------------
@@ -493,12 +519,16 @@ router.post("/formatless", async (req, res) => {
  ========
 */
 router.post("/formattypescript", async (req, res) => {
+  // try {
+  //   res.send(sendCodeFormattedResponse(req.body, "typescript"));
+  // } catch (error) {
+  //   res.send(sendErrorResponse(error));
+  // }
   try {
-    res.send(sendCodeFormattedResponse(req.body, "typescript"));
+    await sendCodeFormattedResponse(req.body, "typescript");
   } catch (error) {
-    res.send(sendErrorResponse(error));
+    await sendErrorResponse(req.body, error);
   }
-  res.end();
 });
 
 // -------------------------------------------------------- Format flow --------------------------------------------------------
@@ -506,12 +536,16 @@ router.post("/formattypescript", async (req, res) => {
  ========
 */
 router.post("/formatflow", async (req, res) => {
+  // try {
+  //   res.send(sendCodeFormattedResponse(req.body, "flow"));
+  // } catch (error) {
+  //   res.send(sendErrorResponse(error));
+  // }
   try {
-    res.send(sendCodeFormattedResponse(req.body, "flow"));
+    await sendCodeFormattedResponse(req.body, "flow");
   } catch (error) {
-    res.send(sendErrorResponse(error));
+    await sendErrorResponse(req.body, error);
   }
-  res.end();
 });
 
 // -------------------------------------------------------- Format JSON --------------------------------------------------------
@@ -519,12 +553,16 @@ router.post("/formatflow", async (req, res) => {
  ========
 */
 router.post("/formatjson", async (req, res) => {
+  // try {
+  //   res.send(sendCodeFormattedResponse(req.body, "json"));
+  // } catch (error) {
+  //   res.send(sendErrorResponse(error));
+  // }
   try {
-    res.send(sendCodeFormattedResponse(req.body, "json"));
+    await sendCodeFormattedResponse(req.body, "json");
   } catch (error) {
-    res.send(sendErrorResponse(error));
+    await sendErrorResponse(req.body, error);
   }
-  res.end();
 });
 
 // -------------------------------------------------------- Format GraphQL --------------------------------------------------------
@@ -532,25 +570,33 @@ router.post("/formatjson", async (req, res) => {
  ========
 */
 router.post("/formatgraphql", async (req, res) => {
+  // try {
+  //   res.send(sendCodeFormattedResponse(req.body, "graphql"));
+  // } catch (error) {
+  //   res.send(sendErrorResponse(error));
+  // }
   try {
-    res.send(sendCodeFormattedResponse(req.body, "graphql"));
+    await sendCodeFormattedResponse(req.body, "graphql");
   } catch (error) {
-    res.send(sendErrorResponse(error));
+    await sendErrorResponse(req.body, error);
   }
-  res.end();
 });
 
-// -------------------------------------------------------- Format GraphQL --------------------------------------------------------
+// -------------------------------------------------------- Format YAML --------------------------------------------------------
 /*
  ========
 */
 router.post("/formatyaml", async (req, res) => {
+  // try {
+  //   res.send(sendCodeFormattedResponse(req.body, "yaml"));
+  // } catch (error) {
+  //   res.send(sendErrorResponse(error));
+  // }
   try {
-    res.send(sendCodeFormattedResponse(req.body, "yaml"));
+    await sendCodeFormattedResponse(req.body, "yaml");
   } catch (error) {
-    res.send(sendErrorResponse(error));
+    await sendErrorResponse(req.body, error);
   }
-  res.end();
 });
 
 // -------------------------------------------------------- Help Box --------------------------------------------------------
