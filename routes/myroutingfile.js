@@ -287,6 +287,47 @@ const sendCodeFormattedResponse = async (requestBody, parserValue) => {
   );
 };
 
+const sendErrorResponse = async (error) => {
+  // console.log(error);
+  var errorString = error.toString();
+  // var errorToDisplay = errorString.substr(
+  //   0,
+  //   errorString.indexOf(" ", errorString.indexOf("https"))
+  // );
+  // var errorToDisplay = errorString.substr(0, 200);
+  var errorToDisplay = errorString.substr(0, errorString.indexOf("\n"));
+
+  var errorResponseObj = {
+    blocks: [
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `Sorry :cry: An error occured \n ${errorToDisplay}`,
+        },
+      },
+      {
+        type: "divider",
+      },
+      {
+        type: "context",
+        elements: [
+          {
+            type: "mrkdwn",
+            text: "*Thank you for using* <https://www.zipy.ai/|Code Formatter>",
+          },
+          {
+            type: "image",
+            image_url: bot_logo,
+            alt_text: "bot logo",
+          },
+        ],
+      },
+    ],
+  };
+  return Axios.post(webhook, errorResponseObj);
+};
+
 // -------------------------------------------------------- Format HTML --------------------------------------------------------
 /*
 <html>
@@ -298,7 +339,12 @@ const sendCodeFormattedResponse = async (requestBody, parserValue) => {
 </html>
 */
 router.post("/formathtml", async (req, res) => {
-  await sendCodeFormattedResponse(req.body, "html"); //sending data to bot to post in channel
+  try {
+    await sendCodeFormattedResponse(req.body, "html");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
+
   res.end();
 });
 
@@ -309,7 +355,11 @@ p {
 } 
 */
 router.post("/formatcss", async (req, res) => {
-  await sendCodeFormattedResponse(req.body, "css"); //sending data to bot to post in channel
+  try {
+    await sendCodeFormattedResponse(req.body, "css");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
   res.end();
 });
 
@@ -319,21 +369,11 @@ router.post("/formatcss", async (req, res) => {
 const a = Math.random(); console.log(a);
 */
 router.post("/formatjs", async (req, res) => {
-  parserValue = "babel";
-  formattedCode = formatCode(req.body.text, parserValue);
-  await sendCodeFormattedResponse(formattedCode, req.body.user_name);
-  res.end();
-});
-
-// -------------------------------------------------------- Format Javascript --------------------------------------------------------
-/*
-// generating  a random number
-const a = Math.random(); console.log(a);
-*/
-router.post("/formatjs", async (req, res) => {
-  parserValue = "babel";
-  formattedCode = formatCode(req.body.text, parserValue);
-  await sendCodeFormattedResponse(formattedCode, req.body.user_name);
+  try {
+    await sendCodeFormattedResponse(req.body, "babel");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
   res.end();
 });
 
