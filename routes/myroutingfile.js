@@ -377,6 +377,179 @@ router.post("/formatjs", async (req, res) => {
   res.end();
 });
 
+// -------------------------------------------------------- Format JSX --------------------------------------------------------
+/*
+function formatName(user) {
+  return user.firstName + ' ' + user.lastName;
+}
+
+const user = {
+  firstName: 'Harper',
+  lastName: 'Perez'
+};
+
+const element = (
+  <h1>
+    Hello, {formatName(user)}!
+  </h1>
+);
+
+*/
+router.post("/formatjsx", async (req, res) => {
+  try {
+    await sendCodeFormattedResponse(req.body, "babel");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
+  res.end();
+});
+
+// -------------------------------------------------------- Format hbs(Remaining) --------------------------------------------------------
+/*
+ ======== to do
+
+router.post("/formathbs", async (req, res) => {
+  try {
+    await sendCodeFormattedResponse(req.body, "");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
+  res.end();
+});
+*/
+
+// -------------------------------------------------------- Format angular --------------------------------------------------------
+/*
+<div ng-app="">
+
+<p>Name: <input type="text" ng-model="name"></p>
+<p>You wrote: {{ name }}</p>
+
+</div>
+*/
+router.post("/formatangular", async (req, res) => {
+  try {
+    await sendCodeFormattedResponse(req.body, "angular");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
+  res.end();
+});
+
+// -------------------------------------------------------- Format scss --------------------------------------------------------
+/*
+$bgcolor: lightblue;
+$textcolor: darkblue;
+$fontsize: 18px;
+
+// Use the variables 
+body {
+  background-color: $bgcolor;
+ color: $textcolor;
+ font-size: $fontsize;
+}
+
+*/
+router.post("/formatscss", async (req, res) => {
+  try {
+    await sendCodeFormattedResponse(req.body, "scss");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
+  res.end();
+});
+
+// -------------------------------------------------------- Format less --------------------------------------------------------
+/*
+
+*/
+router.post("/formatless", async (req, res) => {
+  try {
+    await sendCodeFormattedResponse(req.body, "less");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
+  res.end();
+});
+
+// -------------------------------------------------------- Format less --------------------------------------------------------
+/*
+
+*/
+router.post("/formatless", async (req, res) => {
+  try {
+    await sendCodeFormattedResponse(req.body, "less");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
+  res.end();
+});
+
+// -------------------------------------------------------- Format typescript --------------------------------------------------------
+/*
+ ========
+*/
+router.post("/formattypescript", async (req, res) => {
+  try {
+    await sendCodeFormattedResponse(req.body, "typescript");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
+  res.end();
+});
+
+// -------------------------------------------------------- Format flow --------------------------------------------------------
+/*
+ ========
+*/
+router.post("/formatflow", async (req, res) => {
+  try {
+    await sendCodeFormattedResponse(req.body, "flow");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
+  res.end();
+});
+
+// -------------------------------------------------------- Format JSON --------------------------------------------------------
+/*
+ ========
+*/
+router.post("/formatjson", async (req, res) => {
+  try {
+    await sendCodeFormattedResponse(req.body, "json");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
+  res.end();
+});
+
+// -------------------------------------------------------- Format GraphQL --------------------------------------------------------
+/*
+ ========
+*/
+router.post("/formatgraphql", async (req, res) => {
+  try {
+    await sendCodeFormattedResponse(req.body, "graphql");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
+  res.end();
+});
+
+// -------------------------------------------------------- Format GraphQL --------------------------------------------------------
+/*
+ ========
+*/
+router.post("/formatyaml", async (req, res) => {
+  try {
+    await sendCodeFormattedResponse(req.body, "yaml");
+  } catch (error) {
+    await sendErrorResponse(error);
+  }
+  res.end();
+});
+
 // -------------------------------------------------------- Help Box --------------------------------------------------------
 const sendHelpResponse = async (userName) => {
   return Axios.post(webhook, getHelpBlockKitObj(userName));
