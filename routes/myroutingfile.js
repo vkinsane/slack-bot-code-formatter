@@ -330,12 +330,12 @@ const sendErrorResponse = (error) => {
         elements: [
           {
             type: "mrkdwn",
-            text: "*Thank you for using* <https://www.zipy.ai/|Code Formatter>",
+            text: "*Thank you for using Code Formatter by* <https://www.zipy.ai|Zipy.ai>",
           },
           {
             type: "image",
-            image_url: bot_logo,
-            alt_text: "bot logo",
+            image_url: "https://i.imgur.com/UlvWRpP.png",
+            alt_text: "Zipy.ai",
           },
         ],
       },
