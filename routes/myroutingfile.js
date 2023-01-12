@@ -401,6 +401,7 @@ router.post("/formatjs", async (req, res) => {
   } catch (error) {
     await sendErrorResponse(req.body, error);
   }
+  res.end();
 });
 
 // -------------------------------------------------------- Format JSX --------------------------------------------------------
@@ -432,6 +433,7 @@ router.post("/formatjsx", async (req, res) => {
   } catch (error) {
     await sendErrorResponse(req.body, error);
   }
+  res.end();
 });
 
 // -------------------------------------------------------- Format hbs(Remaining) --------------------------------------------------------
@@ -468,6 +470,7 @@ router.post("/formatangular", async (req, res) => {
   } catch (error) {
     await sendErrorResponse(req.body, error);
   }
+  res.end();
 });
 
 // -------------------------------------------------------- Format scss --------------------------------------------------------
@@ -495,6 +498,7 @@ router.post("/formatscss", async (req, res) => {
   } catch (error) {
     await sendErrorResponse(req.body, error);
   }
+  res.end();
 });
 
 // -------------------------------------------------------- Format less --------------------------------------------------------
@@ -512,6 +516,7 @@ router.post("/formatless", async (req, res) => {
   } catch (error) {
     await sendErrorResponse(req.body, error);
   }
+  res.end();
 });
 
 // -------------------------------------------------------- Format typescript --------------------------------------------------------
@@ -529,6 +534,7 @@ router.post("/formattypescript", async (req, res) => {
   } catch (error) {
     await sendErrorResponse(req.body, error);
   }
+  res.end();
 });
 
 // -------------------------------------------------------- Format flow --------------------------------------------------------
@@ -546,6 +552,7 @@ router.post("/formatflow", async (req, res) => {
   } catch (error) {
     await sendErrorResponse(req.body, error);
   }
+  res.end();
 });
 
 // -------------------------------------------------------- Format JSON --------------------------------------------------------
@@ -563,6 +570,7 @@ router.post("/formatjson", async (req, res) => {
   } catch (error) {
     await sendErrorResponse(req.body, error);
   }
+  res.end();
 });
 
 // -------------------------------------------------------- Format GraphQL --------------------------------------------------------
@@ -580,6 +588,7 @@ router.post("/formatgraphql", async (req, res) => {
   } catch (error) {
     await sendErrorResponse(req.body, error);
   }
+  res.end();
 });
 
 // -------------------------------------------------------- Format YAML --------------------------------------------------------
@@ -597,6 +606,7 @@ router.post("/formatyaml", async (req, res) => {
   } catch (error) {
     await sendErrorResponse(req.body, error);
   }
+  res.end();
 });
 
 // -------------------------------------------------------- Help Box --------------------------------------------------------
